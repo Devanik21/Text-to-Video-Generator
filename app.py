@@ -60,7 +60,9 @@ class MediaFetcher:
                             videos.append({
                                 'url': suitable_file['link'],
                                 'duration': video.get('duration', 15),
-                                'id': video['id']
+                                'id': video['id'],
+                                'width': suitable_file.get('width', 0),
+                                'quality': suitable_file.get('quality', 'unknown')
                             })
                 return videos
         except Exception as e:
@@ -323,7 +325,7 @@ def main():
                     
                     segment_video = video_generator.create_segment_video(
                         segment['text'], 
-                        best_video,
+                        best_video['url'],  # <-- Just get the URL
                         segment_duration
                     )
                     
