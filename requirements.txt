@@ -1,0 +1,5 @@
+streamlit 
+google-generativeai 
+gtts 
+moviepy==0.2.1.9.02
+requests
