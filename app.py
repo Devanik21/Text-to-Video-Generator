@@ -152,7 +152,7 @@ def configure_gemini(api_key):
     """Configure Gemini API"""
     try:
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-2.0-flash')
+        model = genai.GenerativeModel('gemini-pro')
         return model
     except Exception as e:
         st.error(f"Error configuring Gemini: {e}")
@@ -261,10 +261,14 @@ def main():
         st.header("Generate Video")
         
         if st.button("Start Video Generation", disabled=not pexels_api_key):
-            # Initialize media fetcher
+            # Initialize media fetcher and video generator
             media_fetcher = MediaFetcher(pexels_api_key)
-            video_generator = VideoGenerator()
-            st.session_state.video_generator = video_generator
+            
+            # Create video generator and load progress
+            if 'video_generator' not in st.session_state:
+                st.session_state.video_generator = VideoGenerator()
+            
+            video_generator = st.session_state.video_generator
             
             # Load existing progress
             progress_data = video_generator.load_progress()
