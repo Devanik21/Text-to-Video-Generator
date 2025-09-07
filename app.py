@@ -78,6 +78,30 @@ class VideoGenerator:
     
     def __init__(self):
         self.temp_dir = tempfile.mkdtemp()
+        self.progress_file = os.path.join(self.temp_dir, 'progress.json')
+
+    def save_progress(self, segment_index, completed_segments):
+        """Saves the current progress to a JSON file."""
+        progress_data = {
+            'segment_index': segment_index,
+            'completed_segments': completed_segments
+        }
+        try:
+            with open(self.progress_file, 'w') as f:
+                json.dump(progress_data, f)
+        except Exception as e:
+            st.warning(f"Could not save progress: {e}")
+
+    def load_progress(self):
+        """Loads progress from the JSON file."""
+        if os.path.exists(self.progress_file):
+            try:
+                with open(self.progress_file, 'r') as f:
+                    return json.load(f)
+            except Exception as e:
+                st.warning(f"Could not load progress file: {e}")
+                return {'segment_index': 0, 'completed_segments': []}
+        return {'segment_index': 0, 'completed_segments': []}
     
     def generate_audio(self, text, filename):
         """Generate audio from text using gTTS"""
