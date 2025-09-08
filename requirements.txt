@@ -4,4 +4,4 @@ gtts
 moviepy==0.2.1.9.02
 requests
 pillow
-numpy==2.0.0
+numpy
