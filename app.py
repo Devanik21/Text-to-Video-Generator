@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import google.generativeai as genai
 from gtts import gTTS
-import moviepy.editor as mp
+import moviepy.editor as mp 
 import tempfile
 import os
 import json
